@@ -23,11 +23,13 @@ function add6(x: number, y = 0, z: number, q = 1) {
 }
 add6(1, undefined, 3)
 
-function add7(x: number, ...rest: number[]) {
+function add7(x: number, ...rest: number[]) { /// 剩余参数
     return x + rest.reduce((pre, cur) => pre + cur);
 }
 add7(1, 2, 3, 4, 5)
+console.log('add7', add7(1, 2, 3, 4, 5))
 
+// 函数重载
 function add8(...rest: number[]): number;
 function add8(...rest: string[]): string;
 function add8(...rest: any[]) {
@@ -41,3 +43,17 @@ function add8(...rest: any[]) {
 }
 console.log(add8(1, 2))
 console.log(add8('a', 'b', 'c'))
+
+function add9(...rest:string[]): string;
+function add9(...rest:number[]): number;
+function add9(...rest:any[]){
+    let first = rest[0];
+    if (typeof first === 'number'){
+        return rest.reduce((pre, cur)=> pre*cur)
+    }
+    if (typeof first === 'string'){
+        return rest.join('-')
+    }
+}
+console.log(add9(1, 2, 3, 6))
+console.log(add9('a', 'b', 'c'))
